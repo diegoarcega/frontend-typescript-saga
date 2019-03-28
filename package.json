@@ -3,9 +3,24 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@types/history": "^4.7.2",
+    "@types/jest": "^24.0.11",
+    "@types/node": "^11.12.0",
+    "@types/react": "^16.8.10",
+    "@types/react-dom": "^16.8.3",
+    "@types/react-redux": "^7.0.5",
+    "@types/react-router-dom": "^4.3.1",
+    "connected-react-router": "^6.3.2",
     "react": "^16.8.4",
     "react-dom": "^16.8.4",
-    "react-scripts": "2.1.8"
+    "react-redux": "^6.0.1",
+    "react-router-dom": "^5.0.0",
+    "react-scripts": "2.1.8",
+    "redux": "^4.0.1",
+    "redux-saga": "^1.0.2",
+    "regenerator-runtime": "^0.13.1",
+    "semantic-ui-react": "^0.86.0",
+    "typescript": "^3.3.4000"
   },
   "scripts": {
     "start": "react-scripts start",
