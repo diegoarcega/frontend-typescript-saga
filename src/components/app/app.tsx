@@ -23,7 +23,8 @@ export const Application: React.SFC<AppProps> = ({ children, logout, isAuthentic
     <List horizontal>
       <List.Item><Link to="/">Home</Link></List.Item>
       {!isAuthenticated && <List.Item><Link to="/login">Login</Link></List.Item>}
-      {isAuthenticated && <List.Item><Link to="/dashboard">Dashboard</Link></List.Item>}
+      {isAuthenticated && <List.Item><Link to="/users">users</Link></List.Item>}
+      {isAuthenticated && <List.Item><Link to="/dashboard">dashboard</Link></List.Item>}
       {isAuthenticated && <List.Item onClick={logout}>Logout</List.Item>}
     </List>
     <header className="App-header">

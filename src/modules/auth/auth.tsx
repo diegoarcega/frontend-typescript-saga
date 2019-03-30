@@ -12,7 +12,7 @@ const HEADERS: Headers = {
 export const hasToken = () => Boolean(localStorage.getItem('token'))
 export const getToken = () => localStorage.getItem('token')
 
-export const post = (path: string, params: Object) => {
+export const post = (path: string, params: any) => {
   const headers = HEADERS
 
   if (hasToken()) {
@@ -24,6 +24,30 @@ export const post = (path: string, params: Object) => {
     mode: 'cors',
     method: 'POST',
     body: JSON.stringify(params)
-  })
+  }).then(response => response.json())
 }
+
+export const get = (path: string, params?: any) => {
+  const headers = HEADERS
+
+  if (hasToken()) {
+    headers['Authorization'] = 'Bearer: ' + getToken()
+  }
+
+  return fetch(BASE_URL + path, {
+    headers: headers,
+    mode: 'cors',
+    method: 'GET',
+    body: JSON.stringify(params)
+  }).then(response => response.json())
+}
+
+export const getAll = () => get('/users')
+
+interface AuthenticateParams {
+  email: string,
+  password: string,
+}
+
+export const authenticate = (params: AuthenticateParams) => post('/login', params)
 
