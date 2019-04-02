@@ -1,6 +1,7 @@
 import { put, takeLatest } from 'redux-saga/effects'
 import { push } from 'connected-react-router'
 import { authenticate } from '../../modules/auth/auth'
+import { AuthTypes } from '../types'
 
 interface AuthenticateParams {
   email: string,
@@ -20,7 +21,7 @@ function* login(action: LoginAction) {
 
   localStorage.setItem('token', response.token)
 
-  yield put({ type: 'LOGIN_SUCCESS' })
+  yield put({ type: AuthTypes.LOGIN_SUCCESS })
   yield put(push('/dashboard'))
 }
 
@@ -30,10 +31,9 @@ function* logout() {
 }
 
 export function* loginWatcher() {
-  yield takeLatest('LOGIN', login)
+  yield takeLatest(AuthTypes.LOGIN_REQUESTED, login)
 }
 
 export function* logoutWatcher() {
-  yield takeLatest('LOGOUT', logout)
+  yield takeLatest(AuthTypes.LOGOUT, logout)
 }
-

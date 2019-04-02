@@ -6,38 +6,44 @@ import './App.css'
 
 interface AppProps {
   login(email: string, password: string): void,
-  user: Object,
 }
 
-interface State {
-  login: Object
-}
+class App extends React.Component<AppProps> {
+  state = {
+    email: 'diego@diego.com',
+    password: '1234',
+  }
 
-const App: React.SFC<AppProps> = ({ login }) => {
-  const [email, setEmail ] = React.useState('diego@diego.com')
-  const [password, setPassword ] = React.useState('1234')
-  const handleLogin = () => {
+  handleLogin = () => {
+    const { login } = this.props
+    const { email, password } = this.state
     login(email, password)
   }
-  return (<React.Fragment>
-        <Header as="h1" color="blue">Diego's WebApp</Header>
-        <Form onSubmit={handleLogin}>
+
+  handleFieldChange = (event: any) => {
+    const { name, value } = event.target
+    this.setState({ [name]: value })
+  }
+
+  render() {
+    const { email, password } = this.state
+    return (
+      <React.Fragment>
+        <Header as="h1" color="blue">Diegos WebApp</Header>
+        <Form onSubmit={this.handleLogin}>
           <Form.Group>
-            <Form.Input placeholder="email" value={email} onChange={evt => setEmail(evt.target.value)} />
-            <Form.Input placeholder="password" value={password} onChange={evt => setPassword(evt.target.value)} />
+            <Form.Input placeholder="email" name="email" value={email} onChange={this.handleFieldChange} />
+            <Form.Input placeholder="password" name="password" value={password} onChange={this.handleFieldChange} />
             <Form.Button basic primary type="submit">login</Form.Button>
           </Form.Group>
         </Form>
       </React.Fragment>
-  )
+    )
+  }
 }
 
 const mapDispatchToProps = {
   login: Auth.login,
 }
 
-const mapStateToProps = (state: State) => ({
-  user: state.login,
-})
-
-export default connect(mapStateToProps, mapDispatchToProps)(App)
+export default connect(null, mapDispatchToProps)(App)

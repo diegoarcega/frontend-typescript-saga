@@ -1,66 +1,66 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import { Form, Header, Table } from 'semantic-ui-react'
+import { Header, Table } from 'semantic-ui-react'
 import * as UsersActions from '../../redux/actions/users'
+import { User } from '../../redux/reducers/users'
+import { ApplicationState } from '../../redux/reducers'
 
-interface User {
-  id: number,
-  email: string,
-  password: string,
-  role: string,
-}
-
-interface Users {
-  all: Array<User>
-}
-
-interface AppProps {
+interface DispatchProps {
   getAllUsers(): void,
-  all: Array<User>,
 }
 
-const App: React.SFC<AppProps> = ({ getAllUsers, all }) => {
-  console.log({ all })
-  return (<React.Fragment>
+interface StateProps {
+  all: User[]
+  isLoading: boolean,
+}
+
+type Props = StateProps & DispatchProps
+
+class App extends React.Component<Props> {
+  componentDidMount() {
+    const { getAllUsers, all } = this.props
+    if (all.length === 0) getAllUsers()
+  }
+
+  render() {
+    const { all, isLoading } = this.props
+    return (
+      <React.Fragment>
         <Header as="h1" color="blue">Users</Header>
-        <Form onSubmit={getAllUsers}>
-          <Form.Button basic primary type="submit">GET ALL USERS</Form.Button>
-        </Form>
-        <Table>
-          <Table.Header>
-            <Table.Row>
-              <Table.HeaderCell>id</Table.HeaderCell>
-              <Table.HeaderCell>email</Table.HeaderCell>
-              <Table.HeaderCell>password</Table.HeaderCell>
-              <Table.HeaderCell>role</Table.HeaderCell>
-            </Table.Row>
-          </Table.Header>
-          <Table.Body>
-            {all.map(user => (
-              <Table.Row key={user.id}>
-                <Table.Cell>{user.id}</Table.Cell>
-                <Table.Cell>{user.email}</Table.Cell>
-                <Table.Cell>{user.password}</Table.Cell>
-                <Table.Cell>{user.role}</Table.Cell>
+        {isLoading ? <p>Loading...</p> : (
+          <Table>
+            <Table.Header>
+              <Table.Row>
+                <Table.HeaderCell>id</Table.HeaderCell>
+                <Table.HeaderCell>email</Table.HeaderCell>
+                <Table.HeaderCell>password</Table.HeaderCell>
+                <Table.HeaderCell>role</Table.HeaderCell>
               </Table.Row>
-            ))}
-          </Table.Body>
-        </Table>
+            </Table.Header>
+            <Table.Body>
+              {all.map((user: User) => (
+                <Table.Row key={user.id}>
+                  <Table.Cell>{user.id}</Table.Cell>
+                  <Table.Cell>{user.email}</Table.Cell>
+                  <Table.Cell>{user.password}</Table.Cell>
+                  <Table.Cell>{user.role}</Table.Cell>
+                </Table.Row>
+              ))}
+            </Table.Body>
+          </Table>
+)}
       </React.Fragment>
-  )
+    )
+  }
 }
 
 const mapDispatchToProps = {
   getAllUsers: UsersActions.getAll,
 }
 
-
-interface State {
-  users: Users,
-}
-
-const mapStateToProps = (state: State) => ({
+const mapStateToProps = (state: ApplicationState) => ({
   all: state.users.all,
+  isLoading: state.users.isLoading,
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(App)

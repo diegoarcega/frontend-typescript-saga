@@ -1,3 +1,4 @@
+import { NewsTypes } from '../types'
 
 interface Action {
   type: string,
@@ -5,10 +6,10 @@ interface Action {
 }
 
 const reducer = (state = { articles: [] }, action: Action) => {
-  switch(action.type) {
-    case 'GET_NEWS':
+  switch (action.type) {
+    case NewsTypes.GET_NEWS_REQUESTED:
       return { ...state, isLoading: true }
-    case 'NEWS_RECEIVED':
+    case NewsTypes.GET_NEWS_SUCCESS:
       return { ...state, articles: action.articles, isLoading: false }
     default:
       return state
