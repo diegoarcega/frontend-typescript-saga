@@ -1,10 +1,10 @@
 import { takeEvery, call, put } from 'redux-saga/effects'
-import { getAll as getAllUsers } from '../../modules/auth/auth'
+import * as UsersApi from '../../modules/api/users'
 import { UsersTypes } from '../types'
 
 function* getAll() {
-  const response = yield call(getAllUsers)
-  yield put({ type: UsersTypes.GET_ALL_USERS_SUCCESS, payload: response })
+  const response = yield call(UsersApi.getAll)
+  yield put({ type: UsersTypes.GET_ALL_USERS_SUCCESS, payload: response.data })
 }
 
 export function* usersWatcher() {

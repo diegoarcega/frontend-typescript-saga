@@ -1,18 +1,21 @@
 import React from 'react'
 import { Redirect, Route } from 'react-router-dom'
-import { hasToken } from '../modules/auth/auth'
+import { hasToken } from '../modules/local-storage'
 
 interface RouteInterface {
   component: any,
   [propName: string]: any,
 }
 
-export const PrivateRoute: React.SFC<RouteInterface> = ({ component: Component, ...rest }) => (
+export const PrivateRoute = ({ component: Component, ...rest }: RouteInterface):JSX.Element => (
   <Route
     {...rest}
-    render={props => hasToken() ? <Component {...props} /> : <Redirect to={{
+    render={props => (hasToken() ? <Component {...props} /> : (
+      <Redirect to={{
       pathname: '/',
-      state: { from: props.location }
-    }} />}
+      state: { from: props.location },
+    }}
+      />
+))}
   />
 )

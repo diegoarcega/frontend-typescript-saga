@@ -2,7 +2,6 @@ import React from 'react'
 import { connect } from 'react-redux'
 import { Form, Header } from 'semantic-ui-react'
 import * as Auth from '../../redux/actions/login'
-import './App.css'
 
 interface AppProps {
   login(email: string, password: string): void,
