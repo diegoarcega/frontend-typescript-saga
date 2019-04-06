@@ -1,6 +1,6 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import { Form, Header } from 'semantic-ui-react'
+import { Form, Card } from 'semantic-ui-react'
 import * as Auth from '../../redux/actions/login'
 
 interface AppProps {
@@ -27,16 +27,21 @@ class App extends React.Component<AppProps> {
   render() {
     const { email, password } = this.state
     return (
-      <React.Fragment>
-        <Header as="h1" color="blue">Diegos WebApp</Header>
-        <Form onSubmit={this.handleLogin}>
-          <Form.Group>
-            <Form.Input placeholder="email" name="email" value={email} onChange={this.handleFieldChange} />
-            <Form.Input placeholder="password" name="password" value={password} onChange={this.handleFieldChange} />
-            <Form.Button basic primary type="submit">login</Form.Button>
-          </Form.Group>
-        </Form>
-      </React.Fragment>
+      <Card centered>
+        <Card.Content>
+          <Form onSubmit={this.handleLogin} size="big">
+            <Form.Field>
+              <Form.Input placeholder="email" name="email" value={email} onChange={this.handleFieldChange} />
+            </Form.Field>
+            <Form.Field>
+              <Form.Input placeholder="password" name="password" value={password} onChange={this.handleFieldChange} />
+            </Form.Field>
+            <Form.Button color="violet" type="submit" size="large" fluid>
+              Sign in
+            </Form.Button>
+          </Form>
+        </Card.Content>
+      </Card>
     )
   }
 }

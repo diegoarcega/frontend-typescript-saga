@@ -10,6 +10,7 @@
     "@types/react-dom": "^16.8.3",
     "@types/react-redux": "^7.0.5",
     "@types/react-router-dom": "^4.3.1",
+    "@types/styled-components": "^4.1.13",
     "axios": "^0.18.0",
     "connected-react-router": "^6.3.2",
     "history": "^4.9.0",
@@ -23,6 +24,7 @@
     "redux-saga": "^1.0.2",
     "regenerator-runtime": "^0.13.1",
     "semantic-ui-react": "^0.86.0",
+    "styled-components": "^4.2.0",
     "typescript": "^3.3.4000"
   },
   "scripts": {
