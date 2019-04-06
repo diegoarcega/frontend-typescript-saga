@@ -26,7 +26,7 @@ class App extends React.Component<Props> {
     const { all, isLoading } = this.props
     return (
       <React.Fragment>
-        <Header as="h1" color="blue">Users</Header>
+        <Header as="h1">Users</Header>
         {isLoading ? <p>Loading...</p> : (
           <Table>
             <Table.Header>

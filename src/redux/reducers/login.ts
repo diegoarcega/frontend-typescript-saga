@@ -13,7 +13,7 @@ interface Action {
 
 const INITIAL_STATE: State = {
   isLoading: false,
-  isAuthenticated: false,
+  isAuthenticated: Boolean(localStorage.getItem('token')),
 }
 
 const reducer: Reducer = (state: State = INITIAL_STATE, action: Action) => {
