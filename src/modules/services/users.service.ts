@@ -1,3 +1,3 @@
-import { api } from './config'
+import { api } from './api'
 
 export const getAll = () => api.get('/users')

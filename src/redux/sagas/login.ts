@@ -1,7 +1,6 @@
 import { put, takeLatest } from 'redux-saga/effects'
 import { push } from 'connected-react-router'
-import { authenticate } from '../../modules/api/auth'
-import { setApiToken, buildToken } from '../../modules/api/config'
+import { authenticate, setToken, logout as removeToken } from '../../modules/services/auth.service'
 import { AuthTypes } from '../types'
 
 interface AuthenticateParams {
@@ -16,19 +15,20 @@ interface LoginAction {
 }
 
 function* login(action: LoginAction) {
-  localStorage.removeItem('token')
   const { email, password } = action.payload
-  const response = yield authenticate({ email, password })
-  const { token } = response.data
-  setApiToken(token)
-  localStorage.setItem('token', buildToken(token))
-
-  yield put({ type: AuthTypes.LOGIN_SUCCESS })
-  yield put(push('/dashboard'))
+  try {
+    const response = yield authenticate({ email, password })
+    const { token } = response.data
+    setToken(token)
+    yield put({ type: AuthTypes.LOGIN_SUCCESS })
+    yield put(push('/dashboard'))
+  } catch (error) {
+    yield put({ type: AuthTypes.LOGIN_FAILURE })
+  }
 }
 
 function* logout() {
-  localStorage.removeItem('token')
+  removeToken()
   yield put(push('/login'))
 }
 

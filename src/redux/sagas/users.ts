@@ -1,5 +1,5 @@
 import { takeEvery, call, put } from 'redux-saga/effects'
-import * as UsersApi from '../../modules/api/users'
+import * as UsersApi from '../../modules/services/users.service'
 import { UsersTypes } from '../types'
 
 function* getAll() {

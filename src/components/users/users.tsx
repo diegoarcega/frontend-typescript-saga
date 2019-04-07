@@ -19,11 +19,12 @@ type Props = StateProps & DispatchProps
 class App extends React.Component<Props> {
   componentDidMount() {
     const { getAllUsers, all } = this.props
-    if (all.length === 0) getAllUsers()
+    if (all && all.length === 0) getAllUsers()
   }
 
   render() {
     const { all, isLoading } = this.props
+
     return (
       <React.Fragment>
         <Header as="h1">Users</Header>
@@ -38,7 +39,7 @@ class App extends React.Component<Props> {
               </Table.Row>
             </Table.Header>
             <Table.Body>
-              {all.map((user: User) => (
+              {all && all.map((user: User) => (
                 <Table.Row key={user.id}>
                   <Table.Cell>{user.id}</Table.Cell>
                   <Table.Cell>{user.email}</Table.Cell>

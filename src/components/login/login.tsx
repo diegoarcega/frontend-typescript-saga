@@ -1,10 +1,13 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import { Form, Card } from 'semantic-ui-react'
+import { Form, Card, Message } from 'semantic-ui-react'
 import * as Auth from '../../redux/actions/login'
+import { ApplicationState } from '../../redux/reducers';
 
 interface AppProps {
   login(email: string, password: string): void,
+  isLoading: boolean,
+  isError: boolean,
 }
 
 class App extends React.Component<AppProps> {
@@ -26,17 +29,25 @@ class App extends React.Component<AppProps> {
 
   render() {
     const { email, password } = this.state
+    const { isLoading, isError } = this.props
+
     return (
       <Card centered>
         <Card.Content>
-          <Form onSubmit={this.handleLogin} size="big">
+          {isError && <Message error={isError} content="Something went wrong" />}
+          <Form onSubmit={this.handleLogin} size="big" error={isError}>
             <Form.Field>
-              <Form.Input placeholder="email" name="email" value={email} onChange={this.handleFieldChange} />
+              <Form.Input
+                placeholder="email"
+                name="email"
+                value={email}
+                onChange={this.handleFieldChange}
+              />
             </Form.Field>
             <Form.Field>
               <Form.Input placeholder="password" name="password" value={password} onChange={this.handleFieldChange} />
             </Form.Field>
-            <Form.Button color="violet" type="submit" size="large" fluid>
+            <Form.Button color="violet" type="submit" size="large" fluid loading={isLoading}>
               Sign in
             </Form.Button>
           </Form>
@@ -46,8 +57,13 @@ class App extends React.Component<AppProps> {
   }
 }
 
+const mapStateToProps = (state: ApplicationState) => ({
+  isLoading: state.login.isLoading,
+  isError: state.login.isError,
+})
+
 const mapDispatchToProps = {
   login: Auth.login,
 }
 
-export default connect(null, mapDispatchToProps)(App)
+export default connect(mapStateToProps, mapDispatchToProps)(App)

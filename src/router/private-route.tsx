@@ -1,6 +1,6 @@
 import React from 'react'
 import { Redirect, Route } from 'react-router-dom'
-import { hasToken } from '../modules/local-storage'
+import { hasToken } from '../modules/services/auth.service'
 
 interface RouteInterface {
   component: any,
