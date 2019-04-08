@@ -1,20 +1,12 @@
 import { combineReducers } from 'redux'
-import { connectRouter, RouterState } from 'connected-react-router'
-import loginReducer, { State as AuthReducer } from './login'
+import { connectRouter } from 'connected-react-router'
+import authReducer from './auth'
 import newsReducer from './news'
-import usersReducer, { UsersState } from './users'
-
-// Application State
-export interface ApplicationState {
-  router: RouterState,
-  news: any,
-  login: AuthReducer,
-  users: UsersState,
-}
+import usersReducer from './users'
 
 export default (history: any) => combineReducers({
   router: connectRouter(history),
   news: newsReducer,
-  login: loginReducer,
+  login: authReducer,
   users: usersReducer,
 })

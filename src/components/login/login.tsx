@@ -1,8 +1,9 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import { Form, Card, Message } from 'semantic-ui-react'
-import * as Auth from '../../redux/actions/login'
-import { ApplicationState } from '../../redux/reducers';
+import * as Auth from '../../redux/actions/auth'
+import { ApplicationState } from '../../interfaces/application.interface'
+import { THEME } from '../../modules/styles/theme';
 
 interface AppProps {
   login(email: string, password: string): void,
@@ -22,8 +23,8 @@ class App extends React.Component<AppProps> {
     login(email, password)
   }
 
-  handleFieldChange = (event: any) => {
-    const { name, value } = event.target
+  handleFieldChange = (event: React.FormEvent<HTMLInputElement>) => {
+    const { name, value } = event.target as HTMLInputElement
     this.setState({ [name]: value })
   }
 
@@ -47,7 +48,7 @@ class App extends React.Component<AppProps> {
             <Form.Field>
               <Form.Input placeholder="password" name="password" value={password} onChange={this.handleFieldChange} />
             </Form.Field>
-            <Form.Button color="violet" type="submit" size="large" fluid loading={isLoading}>
+            <Form.Button color={THEME.primary} type="submit" size="large" fluid loading={isLoading}>
               Sign in
             </Form.Button>
           </Form>

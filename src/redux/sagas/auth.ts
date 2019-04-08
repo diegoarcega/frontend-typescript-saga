@@ -1,4 +1,4 @@
-import { put, takeLatest } from 'redux-saga/effects'
+import { put, takeLeading, all } from 'redux-saga/effects'
 import { push } from 'connected-react-router'
 import { authenticate, setToken, logout as removeToken } from '../../modules/services/auth.service'
 import { AuthTypes } from '../types'
@@ -32,10 +32,9 @@ function* logout() {
   yield put(push('/login'))
 }
 
-export function* loginWatcher() {
-  yield takeLatest(AuthTypes.LOGIN_REQUESTED, login)
-}
-
-export function* logoutWatcher() {
-  yield takeLatest(AuthTypes.LOGOUT, logout)
+export function* authWatcher() {
+  yield all([
+    yield takeLeading(AuthTypes.LOGIN_REQUESTED, login),
+    yield takeLeading(AuthTypes.LOGOUT, logout),
+  ])
 }

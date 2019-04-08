@@ -1,16 +1,24 @@
 import React from 'react'
 import { connect } from 'react-redux'
+import styled from 'styled-components'
 import { Header, Table } from 'semantic-ui-react'
+import { push, Push } from 'connected-react-router'
 import * as UsersActions from '../../redux/actions/users'
-import { User } from '../../redux/reducers/users'
-import { ApplicationState } from '../../redux/reducers'
+import { UserInterface } from '../../interfaces/user.interface'
+import { ApplicationState } from '../../interfaces/application.interface'
+import { THEME } from '../../modules/styles/theme';
+
+const TableRow = styled(Table.Row)`
+  cursor: pointer;
+`
 
 interface DispatchProps {
   getAllUsers(): void,
+  pushRoute: Push,
 }
 
 interface StateProps {
-  all: User[]
+  all: UserInterface[]
   isLoading: boolean,
 }
 
@@ -22,6 +30,10 @@ class App extends React.Component<Props> {
     if (all && all.length === 0) getAllUsers()
   }
 
+  handleOpenUser = (user: UserInterface) => () => {
+    this.props.pushRoute(`/users/${user.id}`, user)
+  }
+
   render() {
     const { all, isLoading } = this.props
 
@@ -29,23 +41,19 @@ class App extends React.Component<Props> {
       <React.Fragment>
         <Header as="h1">Users</Header>
         {isLoading ? <p>Loading...</p> : (
-          <Table>
+          <Table selectable inverted striped size="large" color={THEME.primary}>
             <Table.Header>
               <Table.Row>
-                <Table.HeaderCell>id</Table.HeaderCell>
                 <Table.HeaderCell>email</Table.HeaderCell>
-                <Table.HeaderCell>password</Table.HeaderCell>
                 <Table.HeaderCell>role</Table.HeaderCell>
               </Table.Row>
             </Table.Header>
             <Table.Body>
-              {all && all.map((user: User) => (
-                <Table.Row key={user.id}>
-                  <Table.Cell>{user.id}</Table.Cell>
+              {all && all.map((user: UserInterface) => (
+                <TableRow key={user.id} onClick={this.handleOpenUser(user)}>
                   <Table.Cell>{user.email}</Table.Cell>
-                  <Table.Cell>{user.password}</Table.Cell>
                   <Table.Cell>{user.role}</Table.Cell>
-                </Table.Row>
+                </TableRow>
               ))}
             </Table.Body>
           </Table>
@@ -57,6 +65,7 @@ class App extends React.Component<Props> {
 
 const mapDispatchToProps = {
   getAllUsers: UsersActions.getAll,
+  pushRoute: push,
 }
 
 const mapStateToProps = (state: ApplicationState) => ({

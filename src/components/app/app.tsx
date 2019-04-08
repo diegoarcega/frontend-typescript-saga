@@ -4,8 +4,9 @@ import { push, Push } from 'connected-react-router'
 import {
  Grid, Container, Menu, MenuItemProps,
 } from 'semantic-ui-react'
-import * as Auth from '../../redux/actions/logout'
-import { ApplicationState } from '../../redux/reducers'
+import * as Auth from '../../redux/actions/auth'
+import { ApplicationState } from '../../interfaces/application.interface'
+import { THEME } from '../../modules/styles/theme'
 
 function replace(pathname?: string): string {
   if (pathname) {
@@ -46,7 +47,7 @@ export class Application extends React.Component<PropsInterface, StateInterface>
       <Grid>
         <Grid.Row>
           <Grid.Column>
-            <Menu color="violet" stackable borderless inverted size="massive" attached="top">
+            <Menu color={THEME.primary} stackable borderless inverted size="massive" attached="top">
               <Menu.Item name="" onClick={this.handleMenuChange} active={activeSection === ''}>
                 Home
               </Menu.Item>

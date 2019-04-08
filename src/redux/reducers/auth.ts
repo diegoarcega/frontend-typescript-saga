@@ -2,7 +2,7 @@ import { Reducer } from 'redux'
 import { AuthTypes } from '../types'
 import { hasToken } from '../../modules/services/auth.service'
 
-export interface State {
+export interface AuthInterface {
   readonly isAuthenticated: boolean,
   readonly isLoading: boolean
   readonly isError: boolean
@@ -13,13 +13,13 @@ interface Action {
   [propName: string]: any,
 }
 
-const INITIAL_STATE: State = {
+const INITIAL_STATE: AuthInterface = {
   isLoading: false,
   isError: false,
   isAuthenticated: hasToken(),
 }
 
-const reducer: Reducer = (state: State = INITIAL_STATE, action: Action) => {
+const reducer: Reducer = (state: AuthInterface = INITIAL_STATE, action: Action) => {
   switch (action.type) {
     case AuthTypes.LOGIN_REQUESTED:
       return {

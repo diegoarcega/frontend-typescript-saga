@@ -1,5 +1,5 @@
 import React from 'react'
-import { Redirect, Route } from 'react-router-dom'
+import { Redirect, Route, RouteProps } from 'react-router-dom'
 import { hasToken } from '../modules/services/auth.service'
 
 interface RouteInterface {
@@ -7,15 +7,24 @@ interface RouteInterface {
   [propName: string]: any,
 }
 
-export const PrivateRoute = ({ component: Component, ...rest }: RouteInterface):JSX.Element => (
+function redirectTo(pathname: string, props: RouteProps) {
+  return {
+    pathname,
+    state: { from: props.location },
+  }
+}
+
+export const PrivateRoute = ({ component: Component, ...rest }: RouteInterface) => (
   <Route
     {...rest}
-    render={props => (hasToken() ? <Component {...props} /> : (
-      <Redirect to={{
-      pathname: '/',
-      state: { from: props.location },
-    }}
-      />
-))}
+    render={props => (hasToken() ? <Component {...props} /> : <Redirect to={redirectTo('/', props)} />)}
   />
+)
+
+export const OnlyNotAuthenticated = ({ component: Component, ...rest }: RouteInterface) => (
+  <Route
+    {...rest}
+    render={props => (hasToken() ? <Redirect to={redirectTo('/', props)} /> : <Component {...props} />)}
+  />
+
 )

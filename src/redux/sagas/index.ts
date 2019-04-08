@@ -1,13 +1,12 @@
 import { all } from 'redux-saga/effects'
-import { newsWatcher } from './news'
-import { loginWatcher, logoutWatcher } from './login'
+// import { newsWatcher } from './news'
+import { authWatcher } from './auth'
 import { usersWatcher } from './users'
 
 export function* rootSaga() {
   yield all([
-    newsWatcher(),
-    loginWatcher(),
-    logoutWatcher(),
+    authWatcher(),
+    // newsWatcher(),
     usersWatcher(),
   ])
 }

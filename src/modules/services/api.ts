@@ -1,7 +1,7 @@
 import axios, { AxiosRequestConfig, AxiosResponse, AxiosError } from 'axios'
 import { hasToken, getToken } from './auth.service'
 import store from '../../redux/store'
-import { logout } from '../../redux/actions/logout'
+import { logout } from '../../redux/actions/auth'
 
 export const api = axios.create({
   baseURL: 'http://localhost:3333',
