@@ -18,13 +18,13 @@ function* deleteUser(action: any) {
 
 function* updateUser(action: any) {
   const response = yield call(UsersApi.updateUser, action.payload.user)
-  yield put({ type: UsersTypes.UPDATE_USER_SUCCESS, payload: { user: response.data.data } })
+  yield put({ type: UsersTypes.UPDATE_USER_SUCCESS, payload: { user: response.data } })
   yield put(push('/users'))
 }
 
 function* createUser(action: any) {
   const response = yield call(UsersApi.createUser, action.payload.user)
-  yield put({ type: UsersTypes.CREATE_USER_SUCCESS, payload: { user: response.data.data } })
+  yield put({ type: UsersTypes.CREATE_USER_SUCCESS, payload: { user: response.data } })
   yield put(push('/users'))
 }
 

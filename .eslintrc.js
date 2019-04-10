@@ -25,6 +25,7 @@ module.exports = {
   rules: {
     'semi': 'off',
     'import/no-cycle': 'off', // remove later
+    'no-underscore-dangle': 'off', // remove later
     'react/jsx-filename-extension': [
       'error',
       {

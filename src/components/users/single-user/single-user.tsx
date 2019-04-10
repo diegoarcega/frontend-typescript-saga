@@ -39,6 +39,7 @@ class User extends React.Component<Props> {
     if (location.pathname === '/users/create') {
       return createUser(this.state)
     }
+
     return updateUser(this.state)
   }
 
@@ -55,7 +56,7 @@ class User extends React.Component<Props> {
     return (
       <Form loading={isLoading} onSubmit={this.handleSubmit}>
         <Form.Field>
-          <Form.Input placeholder="E-mail" value={email} name="email" onChange={this.handleFieldChange} />
+          <Form.Input placeholder="E-mail" autoFocus value={email} name="email" onChange={this.handleFieldChange} />
         </Form.Field>
         <Form.Field>
           <Form.Input placeholder="Password" value={password} name="password" onChange={this.handleFieldChange} />
@@ -64,9 +65,24 @@ class User extends React.Component<Props> {
           <Form.Input placeholder="Role" value={role} name="role" onChange={this.handleFieldChange} />
         </Form.Field>
         <div>
-          <Button floated="left" basic color="blue" onClick={this.handleDelete(id)}>Delete this user</Button>
+          <Button
+            floated="left"
+            basic
+            color="blue"
+            onClick={this.handleDelete(id)}
+            type="button"
+          >
+            Delete this user
+          </Button>
           <Button color={THEME.primary} floated="right" type="submit">Save changes</Button>
-          <Button floated="right" basic onClick={this.handleBackClick}>Back</Button>
+          <Button
+            floated="right"
+            basic
+            onClick={this.handleBackClick}
+            type="button"
+          >
+            Back
+          </Button>
         </div>
       </Form>
     )
