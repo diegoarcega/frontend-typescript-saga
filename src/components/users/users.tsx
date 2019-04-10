@@ -1,7 +1,7 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import styled from 'styled-components'
-import { Header, Table } from 'semantic-ui-react'
+import { Header, Table, Button } from 'semantic-ui-react'
 import { push, Push } from 'connected-react-router'
 import * as UsersActions from '../../redux/actions/users'
 import { UserInterface } from '../../interfaces/user.interface'
@@ -31,15 +31,20 @@ class App extends React.Component<Props> {
   }
 
   handleOpenUser = (user: UserInterface) => () => {
-    this.props.pushRoute(`/users/${user.id}`, user)
+    this.props.pushRoute(`/users/edit/${user.id}`, user)
   }
+
+  handleGoToCreateUser = () => this.props.pushRoute('/users/create')
 
   render() {
     const { all, isLoading } = this.props
 
     return (
       <React.Fragment>
-        <Header as="h1">Users</Header>
+        <Header as="h1">
+          Users
+          <Button onClick={this.handleGoToCreateUser} floated="right">Add User</Button>
+        </Header>
         {isLoading ? <p>Loading...</p> : (
           <Table selectable inverted striped size="large" color={THEME.primary}>
             <Table.Header>

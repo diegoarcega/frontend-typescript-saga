@@ -5,23 +5,28 @@ import { connect } from 'react-redux';
 import { push, Push } from 'connected-react-router';
 import * as UsersActions from '../../../redux/actions/users'
 import { ApplicationState } from '../../../interfaces/application.interface'
-import { UserInterface } from '../../../interfaces/user.interface'
+import { ActionInterface } from '../../../interfaces/action.interface'
 import { THEME } from '../../../modules/styles/theme';
 
 interface Props {
   location: Location,
-  deleteUser(id: string): void,
-  updateUser(user: UserInterface): void,
+  deleteUser: typeof UsersActions.deleteUser,
+  updateUser: typeof UsersActions.updateUser,
+  createUser: typeof UsersActions.createUser,
   isLoading: boolean,
   pushRoute: Push,
 }
 
+function getParam(location: Location, param: string): string {
+  return location.state ? location.state[param] : ''
+}
+
 class User extends React.Component<Props> {
   state = {
-    id: this.props.location.state.id,
-    email: this.props.location.state.email,
-    password: this.props.location.state.password,
-    role: this.props.location.state.role,
+    id: getParam(this.props.location, 'id'),
+    email: getParam(this.props.location, 'email'),
+    password: getParam(this.props.location, 'password'),
+    role: getParam(this.props.location, 'role'),
   }
 
   handleFieldChange = (event: React.FormEvent<HTMLInputElement>) => {
@@ -29,8 +34,12 @@ class User extends React.Component<Props> {
     this.setState({ [name]: value })
   }
 
-  handleSubmit = () => {
-    this.props.updateUser(this.state)
+  handleSubmit = (): ActionInterface => {
+    const { location, updateUser, createUser } = this.props
+    if (location.pathname === '/users/create') {
+      return createUser(this.state)
+    }
+    return updateUser(this.state)
   }
 
   handleDelete = (id: string) => () => this.props.deleteUser(id)
@@ -56,7 +65,7 @@ class User extends React.Component<Props> {
         </Form.Field>
         <div>
           <Button floated="left" basic color="blue" onClick={this.handleDelete(id)}>Delete this user</Button>
-          <Button color={THEME.primary} floated="right">Save changes</Button>
+          <Button color={THEME.primary} floated="right" type="submit">Save changes</Button>
           <Button floated="right" basic onClick={this.handleBackClick}>Back</Button>
         </div>
       </Form>
@@ -71,6 +80,7 @@ const mapStateToProps = (state: ApplicationState) => ({
 const mapDispatchToProps = {
   deleteUser: UsersActions.deleteUser,
   updateUser: UsersActions.updateUser,
+  createUser: UsersActions.createUser,
   pushRoute: push,
 }
 

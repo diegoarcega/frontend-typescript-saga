@@ -22,10 +22,17 @@ function* updateUser(action: any) {
   yield put(push('/users'))
 }
 
+function* createUser(action: any) {
+  const response = yield call(UsersApi.createUser, action.payload.user)
+  yield put({ type: UsersTypes.CREATE_USER_SUCCESS, payload: { user: response.data.data } })
+  yield put(push('/users'))
+}
+
 export function* usersWatcher() {
   yield all([
     yield takeEvery(UsersTypes.GET_ALL_USERS_REQUESTED, getAll),
     yield takeEvery(UsersTypes.UPDATE_USER_REQUESTED, updateUser),
     yield takeEvery(UsersTypes.DELETE_USER_REQUESTED, deleteUser),
+    yield takeEvery(UsersTypes.CREATE_USER_REQUESTED, createUser),
   ])
 }

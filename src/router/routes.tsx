@@ -15,7 +15,8 @@ function routes(): JSX.Element {
         <Route path="/" exact component={() => <p>HOME</p>} />
         <OnlyNotAuthenticated path="/login" exact component={Login} />
         <PrivateRoute path="/users" exact component={Users} />
-        <PrivateRoute path="/users/:id" exact component={SingleUser} />
+        <PrivateRoute path="/users/edit/:id" exact component={SingleUser} />
+        <PrivateRoute path="/users/create" exact component={SingleUser} />
         <PrivateRoute path="/dashboard" component={() => <p>im dashboard</p>} />
       </App>
     </ConnectedRouter>
