@@ -1,14 +1,10 @@
 import { UsersTypes } from '../types'
 import { UserInterface } from '../../interfaces/user.interface'
+import { ActionInterface } from '../../interfaces/action.interface'
 
 export interface UsersInterface {
   readonly all: UserInterface[],
   readonly isLoading: boolean,
-}
-
-interface Action {
-  type: string,
-  [key :string]: any,
 }
 
 const INITIAL_STATE = {
@@ -16,7 +12,7 @@ const INITIAL_STATE = {
   all: [],
 }
 
-export default (state: UsersInterface = INITIAL_STATE, action: Action) => {
+export default (state: UsersInterface = INITIAL_STATE, action: ActionInterface) => {
   switch (action.type) {
     case UsersTypes.CREATE_USER_REQUESTED:
     case UsersTypes.UPDATE_USER_REQUESTED:
@@ -34,7 +30,7 @@ export default (state: UsersInterface = INITIAL_STATE, action: Action) => {
     case UsersTypes.UPDATE_USER_SUCCESS:
       return {
         ...state,
-        all: state.all.reduce((accumulator: any, current: UserInterface) => {
+        all: state.all.reduce((accumulator: UserInterface[], current: UserInterface) => {
           if (current.id === action.payload.user.id) {
             return [...accumulator, action.payload.user]
           }

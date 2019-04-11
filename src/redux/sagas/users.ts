@@ -4,25 +4,26 @@ import {
 import { push } from 'connected-react-router';
 import * as UsersApi from '../../modules/services/users.service'
 import { UsersTypes } from '../types'
+import { ActionInterface } from '../../interfaces/action.interface'
 
 function* getAll() {
   const response = yield call(UsersApi.getAll)
   yield put({ type: UsersTypes.GET_ALL_USERS_SUCCESS, payload: response.data })
 }
 
-function* deleteUser(action: any) {
+function* deleteUser(action: ActionInterface) {
   yield call(UsersApi.deleteUser, action.payload.id)
   yield put({ type: UsersTypes.DELETE_USER_SUCCESS, payload: action.payload })
   yield put(push('/users'))
 }
 
-function* updateUser(action: any) {
+function* updateUser(action: ActionInterface) {
   const response = yield call(UsersApi.updateUser, action.payload.user)
   yield put({ type: UsersTypes.UPDATE_USER_SUCCESS, payload: { user: response.data } })
   yield put(push('/users'))
 }
 
-function* createUser(action: any) {
+function* createUser(action: ActionInterface) {
   const response = yield call(UsersApi.createUser, action.payload.user)
   yield put({ type: UsersTypes.CREATE_USER_SUCCESS, payload: { user: response.data } })
   yield put(push('/users'))

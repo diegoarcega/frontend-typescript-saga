@@ -4,7 +4,7 @@ import store from '../../redux/store'
 import { logout } from '../../redux/actions/auth'
 
 export const api = axios.create({
-  baseURL: 'http://localhost:3333',
+  baseURL: process.env.API_BASEURL,
 })
 
 api.interceptors.request.use((config: AxiosRequestConfig) => {

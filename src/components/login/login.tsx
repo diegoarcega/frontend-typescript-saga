@@ -5,13 +5,18 @@ import * as Auth from '../../redux/actions/auth'
 import { ApplicationState } from '../../interfaces/application.interface'
 import { THEME } from '../../modules/styles/theme';
 
-interface AppProps {
+interface PropsInterface {
   login(email: string, password: string): void,
   isLoading: boolean,
   isError: boolean,
 }
 
-class App extends React.Component<AppProps> {
+interface StateInterface {
+  email: string
+  password: string
+}
+
+class App extends React.Component<PropsInterface, StateInterface> {
   state = {
     email: 'diego@diego.com',
     password: '1234',
@@ -25,6 +30,7 @@ class App extends React.Component<AppProps> {
 
   handleFieldChange = (event: React.FormEvent<HTMLInputElement>) => {
     const { name, value } = event.target as HTMLInputElement
+    // @ts-ignore
     this.setState({ [name]: value })
   }
 

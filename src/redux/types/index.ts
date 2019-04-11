@@ -22,9 +22,3 @@ export enum UsersTypes {
   CREATE_USER_SUCCESS = '@users/CREATE_USER_SUCCESS',
   CREATE_USER_FAILURE = '@users/CREATE_USER_FAILURE',
 }
-
-export enum NewsTypes {
-  GET_NEWS_REQUESTED = '@news/GET_NEWS_REQUESTED',
-  GET_NEWS_SUCCESS = '@news/GET_NEWS_SUCCESS',
-  GET_NEWS_FAILURE = '@news/GET_NEWS_FAILURE',
-}

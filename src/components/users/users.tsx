@@ -1,7 +1,9 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import styled from 'styled-components'
-import { Header, Table, Button } from 'semantic-ui-react'
+import {
+ Header, Table, Button, Loader,
+} from 'semantic-ui-react'
 import { push, Push } from 'connected-react-router'
 import * as UsersActions from '../../redux/actions/users'
 import { UserInterface } from '../../interfaces/user.interface'
@@ -26,8 +28,8 @@ type Props = StateProps & DispatchProps
 
 class App extends React.Component<Props> {
   componentDidMount() {
-    const { getAllUsers, all } = this.props
-    if (all && all.length === 0) getAllUsers()
+    const { getAllUsers } = this.props
+    getAllUsers()
   }
 
   handleOpenUser = (user: UserInterface) => () => {
@@ -42,10 +44,10 @@ class App extends React.Component<Props> {
     return (
       <React.Fragment>
         <Header as="h1">
-          Users
+          All Users
           <Button onClick={this.handleGoToCreateUser} floated="right">Add User</Button>
         </Header>
-        {isLoading ? <p>Loading...</p> : (
+        {isLoading ? <Loader active /> : (
           <Table selectable inverted striped size="large" color={THEME.primary}>
             <Table.Header>
               <Table.Row>

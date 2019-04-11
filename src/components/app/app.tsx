@@ -1,12 +1,17 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import { push, Push } from 'connected-react-router'
+import styled from 'styled-components'
 import {
  Grid, Container, Menu, MenuItemProps,
 } from 'semantic-ui-react'
 import * as Auth from '../../redux/actions/auth'
 import { ApplicationState } from '../../interfaces/application.interface'
 import { THEME } from '../../modules/styles/theme'
+
+const ContentRow = styled(Grid.Row)`
+  min-height: 500px
+`
 
 function replace(pathname?: string): string {
   if (pathname) {
@@ -70,11 +75,11 @@ export class Application extends React.Component<PropsInterface, StateInterface>
             </Menu>
           </Grid.Column>
         </Grid.Row>
-        <Grid.Row>
+        <ContentRow>
           <Grid.Column>
             <Container>{children}</Container>
           </Grid.Column>
-        </Grid.Row>
+        </ContentRow>
       </Grid>
     )
   }
