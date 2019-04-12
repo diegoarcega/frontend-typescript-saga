@@ -3,8 +3,8 @@ import { UserInterface } from '../../interfaces/user.interface'
 import { ActionInterface } from '../../interfaces/action.interface'
 
 export interface UsersInterface {
-  readonly all: UserInterface[],
-  readonly isLoading: boolean,
+  readonly all: UserInterface[]
+  readonly isLoading: boolean
 }
 
 const INITIAL_STATE = {

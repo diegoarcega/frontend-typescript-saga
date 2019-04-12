@@ -3,8 +3,5 @@ import { authWatcher } from './auth'
 import { usersWatcher } from './users'
 
 export function* rootSaga() {
-  yield all([
-    authWatcher(),
-    usersWatcher(),
-  ])
+  yield all([authWatcher(), usersWatcher()])
 }

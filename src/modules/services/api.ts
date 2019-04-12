@@ -15,13 +15,16 @@ api.interceptors.request.use((config: AxiosRequestConfig) => {
   return newConfig
 })
 
-api.interceptors.response.use((response: AxiosResponse) => response, (error: AxiosError) => {
-  if (!error.response) return error
+api.interceptors.response.use(
+  (response: AxiosResponse) => response,
+  (error: AxiosError) => {
+    if (!error.response) return error
 
-  const { status } = error.response
-  if (!status || (status && status === 401)) {
-    store.dispatch(logout())
+    const { status } = error.response
+    if (!status || (status && status === 401)) {
+      store.dispatch(logout())
+    }
+
+    return error
   }
-
-  return error
-})
+)

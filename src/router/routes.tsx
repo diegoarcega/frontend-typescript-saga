@@ -20,7 +20,7 @@ function routes(): JSX.Element {
         <PrivateRoute path="/dashboard" component={() => <p>im dashboard</p>} />
       </App>
     </ConnectedRouter>
-)
+  )
 }
 
 export default routes

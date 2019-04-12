@@ -5,12 +5,12 @@ import { AuthTypes } from '../types'
 import { ActionInterface } from '../../interfaces/action.interface'
 
 interface AuthenticateParams {
-  email: string,
-  password: string,
+  email: string
+  password: string
 }
 
 interface LoginActionInterface extends ActionInterface {
-  payload: AuthenticateParams,
+  payload: AuthenticateParams
 }
 
 function* login(action: LoginActionInterface) {

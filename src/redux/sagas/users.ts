@@ -1,7 +1,5 @@
-import {
- takeEvery, call, put, all,
-} from 'redux-saga/effects'
-import { push } from 'connected-react-router';
+import { takeEvery, call, put, all } from 'redux-saga/effects'
+import { push } from 'connected-react-router'
 import * as UsersApi from '../../modules/services/users.service'
 import { UsersTypes } from '../types'
 import { ActionInterface } from '../../interfaces/action.interface'
