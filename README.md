@@ -1,9 +1,12 @@
+# My Practice frontend App
+
 I am using this repository to practice the following:
-* Typescript
-* redux-saga
 
-todo
+- Typescript
+- redux-saga
 
-* env variables
-* add tests
-* add a toaster for general notifications
+## Todos
+
+- [x] env variables
+- [ ] add tests
+- [ ] add a toaster for general notifications

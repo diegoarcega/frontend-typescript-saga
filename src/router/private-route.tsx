@@ -3,8 +3,8 @@ import { Redirect, Route, RouteProps } from 'react-router-dom'
 import { hasToken } from '../modules/services/auth.service'
 
 interface RouteInterface {
-  component: any,
-  [propName: string]: any,
+  component: any
+  [propName: string]: any
 }
 
 function redirectTo(pathname: string, props: RouteProps) {
@@ -26,5 +26,4 @@ export const OnlyNotAuthenticated = ({ component: Component, ...rest }: RouteInt
     {...rest}
     render={props => (hasToken() ? <Redirect to={redirectTo('/', props)} /> : <Component {...props} />)}
   />
-
 )

@@ -4,7 +4,7 @@ import store from '../../redux/store'
 import { logout } from '../../redux/actions/auth'
 
 export const api = axios.create({
-  baseURL: process.env.API_BASEURL,
+  baseURL: process.env.REACT_APP_API_BASEURL,
 })
 
 api.interceptors.request.use((config: AxiosRequestConfig) => {
@@ -15,13 +15,16 @@ api.interceptors.request.use((config: AxiosRequestConfig) => {
   return newConfig
 })
 
-api.interceptors.response.use((response: AxiosResponse) => response, (error: AxiosError) => {
-  if (!error.response) return error
+api.interceptors.response.use(
+  (response: AxiosResponse) => response,
+  (error: AxiosError) => {
+    if (!error.response) return error
 
-  const { status } = error.response
-  if (!status || (status && status === 401)) {
-    store.dispatch(logout())
+    const { status } = error.response
+    if (!status || (status && status === 401)) {
+      store.dispatch(logout())
+    }
+
+    return error
   }
-
-  return error
-})
+)

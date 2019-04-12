@@ -2,15 +2,13 @@ import React from 'react'
 import { connect } from 'react-redux'
 import { push, Push } from 'connected-react-router'
 import styled from 'styled-components'
-import {
- Grid, Container, Menu, MenuItemProps,
-} from 'semantic-ui-react'
+import { Grid, Container, Menu, MenuItemProps } from 'semantic-ui-react'
 import * as Auth from '../../redux/actions/auth'
 import { ApplicationState } from '../../interfaces/application.interface'
 import { THEME } from '../../modules/styles/theme'
 
 const ContentRow = styled(Grid.Row)`
-  min-height: 500px
+  min-height: 500px;
 `
 
 function replace(pathname?: string): string {
@@ -21,15 +19,15 @@ function replace(pathname?: string): string {
 }
 
 interface PropsInterface {
-  children: any,
-  logout(): void,
-  isAuthenticated: boolean,
-  pushRoute: Push,
-  pathname?: string,
+  children: any
+  logout(): void
+  isAuthenticated: boolean
+  pushRoute: Push
+  pathname?: string
 }
 
 interface StateInterface {
-  activeSection?: string,
+  activeSection?: string
 }
 
 export class Application extends React.Component<PropsInterface, StateInterface> {
@@ -57,21 +55,29 @@ export class Application extends React.Component<PropsInterface, StateInterface>
                 Home
               </Menu.Item>
               {!isAuthenticated && (
-              <Menu.Item name="login" onClick={this.handleMenuChange} active={activeSection === 'login'}>
-                Login
-              </Menu.Item>
+                <Menu.Item name="login" onClick={this.handleMenuChange} active={activeSection === 'login'}>
+                  Login
+                </Menu.Item>
               )}
               {isAuthenticated && (
-              <Menu.Item name="users" onClick={this.handleMenuChange} active={activeSection === 'users'}>
-                Users
-              </Menu.Item>
+                <Menu.Item name="users" onClick={this.handleMenuChange} active={activeSection === 'users'}>
+                  Users
+                </Menu.Item>
               )}
               {isAuthenticated && (
-              <Menu.Item name="dashboard" onClick={this.handleMenuChange} active={activeSection === 'dashboard'}>
-                Dashboard
-              </Menu.Item>
+                <Menu.Item
+                  name="dashboard"
+                  onClick={this.handleMenuChange}
+                  active={activeSection === 'dashboard'}
+                >
+                  Dashboard
+                </Menu.Item>
               )}
-              {isAuthenticated && <Menu.Item position="right" onClick={logout}>Logout</Menu.Item>}
+              {isAuthenticated && (
+                <Menu.Item position="right" onClick={logout}>
+                  Logout
+                </Menu.Item>
+              )}
             </Menu>
           </Grid.Column>
         </Grid.Row>
@@ -95,4 +101,7 @@ const mapStateToProps = (state: ApplicationState) => ({
   pathname: state.router.location.pathname,
 })
 
-export const App = connect(mapStateToProps, mapDispatchToProps)(Application)
+export const App = connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(Application)

@@ -5,7 +5,7 @@ import { PrivateRoute, OnlyNotAuthenticated } from './private-route'
 import { history } from '../redux/store'
 import Login from '../components/login/login'
 import Users from '../components/users/users'
-import { App } from '../components/app/app'
+import { App } from '../components/app/app-material'
 import { SingleUser } from '../components/users/single-user/single-user'
 
 function routes(): JSX.Element {
@@ -20,7 +20,7 @@ function routes(): JSX.Element {
         <PrivateRoute path="/dashboard" component={() => <p>im dashboard</p>} />
       </App>
     </ConnectedRouter>
-)
+  )
 }
 
 export default routes

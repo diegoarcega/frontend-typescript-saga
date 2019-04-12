@@ -4,7 +4,7 @@ import { hasToken } from '../../modules/services/auth.service'
 import { ActionInterface } from '../../interfaces/action.interface'
 
 export interface AuthInterface {
-  readonly isAuthenticated: boolean,
+  readonly isAuthenticated: boolean
   readonly isLoading: boolean
   readonly isError: boolean
 }
@@ -19,8 +19,11 @@ const reducer: Reducer = (state: AuthInterface = INITIAL_STATE, action: ActionIn
   switch (action.type) {
     case AuthTypes.LOGIN_REQUESTED:
       return {
-    ...state, isAuthenticated: false, isLoading: true, isError: false,
-    }
+        ...state,
+        isAuthenticated: false,
+        isLoading: true,
+        isError: false,
+      }
     case AuthTypes.LOGIN_SUCCESS:
       return { ...state, isAuthenticated: true, isLoading: false }
     case AuthTypes.LOGIN_FAILURE:

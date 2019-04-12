@@ -1,27 +1,25 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import styled from 'styled-components'
-import {
- Header, Table, Button, Loader,
-} from 'semantic-ui-react'
+import { Header, Table, Button, Loader } from 'semantic-ui-react'
 import { push, Push } from 'connected-react-router'
 import * as UsersActions from '../../redux/actions/users'
 import { UserInterface } from '../../interfaces/user.interface'
 import { ApplicationState } from '../../interfaces/application.interface'
-import { THEME } from '../../modules/styles/theme';
+import { THEME } from '../../modules/styles/theme'
 
 const TableRow = styled(Table.Row)`
   cursor: pointer;
 `
 
 interface DispatchProps {
-  getAllUsers(): void,
-  pushRoute: Push,
+  getAllUsers(): void
+  pushRoute: Push
 }
 
 interface StateProps {
   all: UserInterface[]
-  isLoading: boolean,
+  isLoading: boolean
 }
 
 type Props = StateProps & DispatchProps
@@ -45,9 +43,13 @@ class App extends React.Component<Props> {
       <React.Fragment>
         <Header as="h1">
           All Users
-          <Button onClick={this.handleGoToCreateUser} floated="right">Add User</Button>
+          <Button onClick={this.handleGoToCreateUser} floated="right">
+            Add User
+          </Button>
         </Header>
-        {isLoading ? <Loader active /> : (
+        {isLoading ? (
+          <Loader active />
+        ) : (
           <Table selectable inverted striped size="large" color={THEME.primary}>
             <Table.Header>
               <Table.Row>
@@ -56,15 +58,16 @@ class App extends React.Component<Props> {
               </Table.Row>
             </Table.Header>
             <Table.Body>
-              {all && all.map((user: UserInterface) => (
-                <TableRow key={user.id} onClick={this.handleOpenUser(user)}>
-                  <Table.Cell>{user.email}</Table.Cell>
-                  <Table.Cell>{user.role}</Table.Cell>
-                </TableRow>
-              ))}
+              {all &&
+                all.map((user: UserInterface) => (
+                  <TableRow key={user.id} onClick={this.handleOpenUser(user)}>
+                    <Table.Cell>{user.email}</Table.Cell>
+                    <Table.Cell>{user.role}</Table.Cell>
+                  </TableRow>
+                ))}
             </Table.Body>
           </Table>
-)}
+        )}
       </React.Fragment>
     )
   }
@@ -80,4 +83,7 @@ const mapStateToProps = (state: ApplicationState) => ({
   isLoading: state.users.isLoading,
 })
 
-export default connect(mapStateToProps, mapDispatchToProps)(App)
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(App)

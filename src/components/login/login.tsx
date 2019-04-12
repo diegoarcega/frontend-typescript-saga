@@ -3,12 +3,12 @@ import { connect } from 'react-redux'
 import { Form, Card, Message } from 'semantic-ui-react'
 import * as Auth from '../../redux/actions/auth'
 import { ApplicationState } from '../../interfaces/application.interface'
-import { THEME } from '../../modules/styles/theme';
+import { THEME } from '../../modules/styles/theme'
 
 interface PropsInterface {
-  login(email: string, password: string): void,
-  isLoading: boolean,
-  isError: boolean,
+  login(email: string, password: string): void
+  isLoading: boolean
+  isError: boolean
 }
 
 interface StateInterface {
@@ -44,15 +44,15 @@ class App extends React.Component<PropsInterface, StateInterface> {
           {isError && <Message error={isError} content="Something went wrong" />}
           <Form onSubmit={this.handleLogin} size="big" error={isError}>
             <Form.Field>
-              <Form.Input
-                placeholder="email"
-                name="email"
-                value={email}
-                onChange={this.handleFieldChange}
-              />
+              <Form.Input placeholder="email" name="email" value={email} onChange={this.handleFieldChange} />
             </Form.Field>
             <Form.Field>
-              <Form.Input placeholder="password" name="password" value={password} onChange={this.handleFieldChange} />
+              <Form.Input
+                placeholder="password"
+                name="password"
+                value={password}
+                onChange={this.handleFieldChange}
+              />
             </Form.Field>
             <Form.Button color={THEME.primary} type="submit" size="large" fluid loading={isLoading}>
               Sign in
@@ -73,4 +73,7 @@ const mapDispatchToProps = {
   login: Auth.login,
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(App)
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(App)

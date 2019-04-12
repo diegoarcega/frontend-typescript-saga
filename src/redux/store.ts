@@ -14,10 +14,7 @@ const sagaMiddleware = createSagaMiddleware()
 const middlewares = applyMiddleware(routerMiddleware(history), sagaMiddleware)
 
 // store
-const store = createStore(
-  createRootReducer(history),
-  compose(middlewares),
-)
+const store = createStore(createRootReducer(history), compose(middlewares))
 sagaMiddleware.run(rootSaga)
 
 export default store
