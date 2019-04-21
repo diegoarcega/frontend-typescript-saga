@@ -2,9 +2,10 @@ import axios, { AxiosRequestConfig, AxiosResponse, AxiosError } from 'axios'
 import { hasToken, getToken } from './auth.service'
 import store from '../../redux/store'
 import { logout } from '../../redux/actions/auth'
+import config from '../../config'
 
 export const api = axios.create({
-  baseURL: process.env.API_BASEURL,
+  baseURL: config.apiBaseUrl,
 })
 
 api.interceptors.request.use((config: AxiosRequestConfig) => {
