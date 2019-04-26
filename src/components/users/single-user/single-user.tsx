@@ -85,7 +85,7 @@ class User extends React.Component<PropsInterface, StateInterface, UserInterface
           </Form.Field>
           <Form.Field>
             <Form.Input
-              placeholder="Password"
+              placeholder="Set a new password"
               value={password}
               name="password"
               onChange={this.handleFieldChange}
