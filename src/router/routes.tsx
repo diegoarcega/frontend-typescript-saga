@@ -7,8 +7,16 @@ import Login from '../components/login/login'
 import Users from '../components/users/users'
 import { App } from '../components/app/app'
 import { SingleUser } from '../components/users/single-user/single-user'
+import { isAuthenticated } from '../modules/services/auth.service'
 
 function routes(): JSX.Element {
+  history.listen(location => {
+    const publicRoutes = ['/', '/login']
+    if (!isAuthenticated() && !publicRoutes.includes(location.pathname)) {
+      history.push('/login')
+    }
+  })
+
   return (
     <ConnectedRouter history={history}>
       <App>
