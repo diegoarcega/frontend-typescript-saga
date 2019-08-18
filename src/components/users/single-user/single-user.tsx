@@ -81,6 +81,7 @@ class User extends React.Component<PropsInterface, StateInterface, UserInterface
               value={email}
               name="email"
               onChange={this.handleFieldChange}
+              required
             />
           </Form.Field>
           <Form.Field>
@@ -89,15 +90,18 @@ class User extends React.Component<PropsInterface, StateInterface, UserInterface
               value={password}
               name="password"
               onChange={this.handleFieldChange}
+              required
             />
           </Form.Field>
           <Form.Field>
             <Form.Input placeholder="Role" value={role} name="role" onChange={this.handleFieldChange} />
           </Form.Field>
           <div>
-            <Button floated="left" basic color="blue" onClick={this.handleDelete(id)} type="button">
-              Delete this user
-            </Button>
+            {isEdit && (
+              <Button floated="left" basic color="blue" onClick={this.handleDelete(id)} type="button">
+                Delete this user
+              </Button>
+            )}
             <Button color={THEME.primary} floated="right" type="submit">
               Save changes
             </Button>
